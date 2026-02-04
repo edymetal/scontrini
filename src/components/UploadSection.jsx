@@ -267,38 +267,48 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
                         )}
                     </button>
                 </div>
-                <div style={{ marginTop: '2rem', padding: '1rem', border: '1px dashed red', borderRadius: '8px', background: 'rgba(255,0,0,0.05)' }}>
-                    <p style={{ color: 'red', fontWeight: 'bold', marginBottom: '0.5rem' }}>Área de Teste (Debug)</p>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                <div style={{ marginTop: '2rem', padding: '1rem', border: '2px dashed red', borderRadius: '8px', background: '#fff0f0' }}>
+                    <p style={{ color: 'red', fontWeight: 'bold', marginBottom: '1rem', textAlign: 'center' }}>Área de Diagnóstico (Teste Mobile)</p>
+                    <p style={{ fontSize: '0.8rem', color: '#666', marginBottom: '1rem', textAlign: 'center' }}>
+                        Se o input nativo falhou, tente estas variações para descobrirmos a causa.
+                    </p>
 
-                        {/* Teste 1: Input Nativo Visível */}
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+
+                        {/* Variação 1: Input totalmente limpo */}
                         <div>
-                            <p style={{ margin: '0 0 0.5rem', fontSize: '0.8rem' }}>Teste 1: Input Nativo (sem estilo)</p>
+                            <label style={{ fontWeight: 'bold', display: 'block', marginBottom: '0.2rem' }}>A. Input "Puro" (Sem restrições)</label>
+                            <p style={{ fontSize: '0.75rem', margin: 0 }}>Se este funcionar, o atributo 'accept="image/*"' estava travando.</p>
                             <input
                                 type="file"
-                                accept="image/*"
                                 onChange={handleFileChange}
-                                style={{ display: 'block', width: '100%', padding: '0.5rem', background: 'white' }}
+                                style={{ display: 'block', width: '100%', padding: '0.5rem', marginTop: '0.2rem', background: 'white', border: '1px solid #ccc' }}
                             />
                         </div>
 
-                        {/* Teste 2: Botão Simples JS */}
+                        {/* Variação 2: Especificar extensões em vez de wildcard */}
                         <div>
-                            <p style={{ margin: '0 0 0.5rem', fontSize: '0.8rem' }}>Teste 2: Botão Simples (JS Ref)</p>
-                            <button
-                                type="button"
-                                onClick={() => fileInputRef.current.click()}
-                                style={{
-                                    background: '#333',
-                                    color: 'white',
-                                    padding: '10px 20px',
-                                    border: 'none',
-                                    borderRadius: '4px',
-                                    width: '100%'
-                                }}
-                            >
-                                Forçar Abertura Galeria
-                            </button>
+                            <label style={{ fontWeight: 'bold', display: 'block', marginBottom: '0.2rem' }}>B. Tipos Específicos (.jpg,.png)</label>
+                            <p style={{ fontSize: '0.75rem', margin: 0 }}>Alguns Androids antigos falham com wildcard (*).</p>
+                            <input
+                                type="file"
+                                accept="image/jpeg,image/png,image/heic"
+                                onChange={handleFileChange}
+                                style={{ display: 'block', width: '100%', padding: '0.5rem', marginTop: '0.2rem', background: 'white', border: '1px solid #ccc' }}
+                            />
+                        </div>
+
+                        {/* Variação 3: Forçar câmera */}
+                        <div>
+                            <label style={{ fontWeight: 'bold', display: 'block', marginBottom: '0.2rem' }}>C. Forçar Câmera (capture)</label>
+                            <p style={{ fontSize: '0.75rem', margin: 0 }}>Tenta abrir direto a câmera.</p>
+                            <input
+                                type="file"
+                                accept="image/*"
+                                capture="environment"
+                                onChange={handleFileChange}
+                                style={{ display: 'block', width: '100%', padding: '0.5rem', marginTop: '0.2rem', background: 'white', border: '1px solid #ccc' }}
+                            />
                         </div>
                     </div>
                 </div>
