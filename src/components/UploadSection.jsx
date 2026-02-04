@@ -212,7 +212,7 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
                     <input
                         ref={fileInputRef}
                         type="file"
-                        /* accept attribute removed for better Android compatibility */
+                        accept=".jpg, .jpeg, .png, .webp, .heic"
                         onChange={handleFileChange}
                         disabled={isProcessing}
                         style={{ display: 'none' }}
