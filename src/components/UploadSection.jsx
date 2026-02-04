@@ -212,7 +212,7 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
                     <input
                         ref={fileInputRef}
                         type="file"
-                        accept=".jpg, .jpeg, .png, .webp, .heic"
+                        /* No accept attribute: ensures maximum compatibility with Android */
                         onChange={handleFileChange}
                         disabled={isProcessing}
                         style={{ display: 'none' }}
@@ -223,23 +223,26 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
                         className="btn-primary"
                         style={{
                             flex: '1 1 auto',
-                            minWidth: '140px',
-                            maxWidth: '200px',
+                            minWidth: '160px',
+                            maxWidth: '240px',
+                            padding: '1rem',
                             display: 'inline-flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            gap: '0.5rem',
+                            gap: '0.8rem',
+                            fontSize: '1.2rem',
+                            fontWeight: '600',
                             cursor: isProcessing ? 'default' : 'pointer'
                         }}
                     >
                         {isProcessing ? (
                             <>
-                                <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true" style={{ width: '1.5rem', height: '1.5rem' }}></span>
                                 Attendere...
                             </>
                         ) : (
                             <>
-                                <i className="bi bi-upload"></i>
+                                <i className="bi bi-upload" style={{ fontSize: '1.4rem' }}></i>
                                 Carica
                             </>
                         )}
@@ -251,24 +254,27 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
                         disabled={isProcessing}
                         style={{
                             flex: '1 1 auto',
-                            minWidth: '140px',
-                            maxWidth: '200px',
+                            minWidth: '160px',
+                            maxWidth: '240px',
+                            padding: '1rem',
                             display: 'inline-flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            gap: '0.5rem',
+                            gap: '0.8rem',
+                            fontSize: '1.2rem',
+                            fontWeight: '600',
                             background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
                             cursor: isProcessing ? 'default' : 'pointer'
                         }}
                     >
                         {isProcessing ? (
                             <>
-                                <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true" style={{ width: '1.5rem', height: '1.5rem' }}></span>
                                 Attendere...
                             </>
                         ) : (
                             <>
-                                <i className="bi bi-camera"></i>
+                                <i className="bi bi-camera" style={{ fontSize: '1.4rem' }}></i>
                                 Scatta
                             </>
                         )}
