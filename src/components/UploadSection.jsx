@@ -196,56 +196,38 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
                 </div>
 
             <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-                {/* Bulletproof Carica Button for Mobile */}
-                <div style={{ 
-                    position: 'relative', 
-                    flex: '1 1 auto', 
-                    minWidth: '140px', 
-                    maxWidth: '200px',
-                    overflow: 'hidden'
-                }}>
-                    <button
-                        className="btn-primary"
+                <label
+                    className="btn-primary"
+                    style={{ 
+                        flex: '1 1 auto', 
+                        minWidth: '140px', 
+                        maxWidth: '200px', 
+                        display: 'inline-flex', 
+                        alignItems: 'center', 
+                        justifyContent: 'center', 
+                        gap: '0.5rem',
+                        cursor: isProcessing ? 'default' : 'pointer'
+                    }}
+                >
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleFileChange}
                         disabled={isProcessing}
-                        style={{ 
-                            width: '100%',
-                            display: 'inline-flex', 
-                            alignItems: 'center', 
-                            justifyContent: 'center', 
-                            gap: '0.5rem',
-                            cursor: isProcessing ? 'default' : 'pointer'
-                        }}
-                    >
-                        {isProcessing ? (
-                            <>
-                                <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                                Attendere...
-                            </>
-                        ) : (
-                            <>
-                                <i className="bi bi-upload"></i>
-                                Carica
-                            </>
-                        )}
-                    </button>
-                    {!isProcessing && (
-                        <input
-                            type="file"
-                            accept="image/*"
-                            onChange={handleFileChange}
-                            style={{
-                                position: 'absolute',
-                                top: 0,
-                                left: 0,
-                                opacity: 0,
-                                width: '100%',
-                                height: '100%',
-                                cursor: 'pointer',
-                                fontSize: '100px' // Ensure the click area is large
-                            }}
-                        />
+                        style={{ display: 'none' }}
+                    />
+                    {isProcessing ? (
+                        <>
+                            <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            Attendere...
+                        </>
+                    ) : (
+                        <>
+                            <i className="bi bi-upload"></i>
+                            Carica
+                        </>
                     )}
-                </div>
+                </label>
 
                 <button
                     onClick={handleCameraClick}
