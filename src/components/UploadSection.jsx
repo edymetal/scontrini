@@ -267,6 +267,41 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
                         )}
                     </button>
                 </div>
+                <div style={{ marginTop: '2rem', padding: '1rem', border: '1px dashed red', borderRadius: '8px', background: 'rgba(255,0,0,0.05)' }}>
+                    <p style={{ color: 'red', fontWeight: 'bold', marginBottom: '0.5rem' }}>Área de Teste (Debug)</p>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+
+                        {/* Teste 1: Input Nativo Visível */}
+                        <div>
+                            <p style={{ margin: '0 0 0.5rem', fontSize: '0.8rem' }}>Teste 1: Input Nativo (sem estilo)</p>
+                            <input
+                                type="file"
+                                accept="image/*"
+                                onChange={handleFileChange}
+                                style={{ display: 'block', width: '100%', padding: '0.5rem', background: 'white' }}
+                            />
+                        </div>
+
+                        {/* Teste 2: Botão Simples JS */}
+                        <div>
+                            <p style={{ margin: '0 0 0.5rem', fontSize: '0.8rem' }}>Teste 2: Botão Simples (JS Ref)</p>
+                            <button
+                                type="button"
+                                onClick={() => fileInputRef.current.click()}
+                                style={{
+                                    background: '#333',
+                                    color: 'white',
+                                    padding: '10px 20px',
+                                    border: 'none',
+                                    borderRadius: '4px',
+                                    width: '100%'
+                                }}
+                            >
+                                Forçar Abertura Galeria
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </>
     );
