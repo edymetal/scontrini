@@ -1,7 +1,11 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 async function testConnection() {
-    const API_KEY = "AIzaSyBt2AcyoPntlZ4XgiWUUoEqVzz0Nsk8G7c";
+    const API_KEY = process.env.GEMINI_API_KEY;
+    if (!API_KEY) {
+        console.error("Erro: A variável de ambiente GEMINI_API_KEY não está definida.");
+        return;
+    }
     const genAI = new GoogleGenerativeAI(API_KEY);
     const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 

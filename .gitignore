@@ -25,3 +25,8 @@ dist-ssr
 
 # Terminal Paste Image folder
 .cp-images/
+
+# Environment Variables
+.env
+.env.local
+.env.*.local
