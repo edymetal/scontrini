@@ -181,7 +181,13 @@ function App() {
         borderTop: '1px solid var(--glass-border)',
         paddingTop: '1.5rem'
       }}>
-        <p>Scontrini v{version} &bull; Desenvolvido com <i className="bi bi-heart-fill" style={{ color: '#ec4899', fontSize: '0.75rem' }}></i></p>
+        <p>Scontrini v{version} &bull; Sviluppato da <strong>Edney Pugliese</strong></p>
+        <p style={{ marginTop: '0.5rem' }}>
+          <i className="bi bi-envelope-fill" style={{ marginRight: '0.5rem' }}></i>
+          <a href="mailto:edneypugliese@gmail.com" style={{ color: 'inherit', textDecoration: 'none' }}>
+            edneypugliese@gmail.com
+          </a>
+        </p>
       </footer>
     </div>
   );
