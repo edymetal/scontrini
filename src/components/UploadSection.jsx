@@ -16,10 +16,6 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
         }
     };
 
-    const handleUploadClick = () => {
-        document.getElementById('receipt-upload').click();
-    };
-
     const handleCameraClick = async () => {
         try {
             const constraints = {
@@ -200,41 +196,56 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
                 </div>
 
             <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-                <input
-                    id="receipt-upload"
-                    type="file"
-                    accept="image/*"
-                    onChange={handleFileChange}
-                    style={{ display: 'none' }}
-                />
-
-                <button
-                    onClick={handleUploadClick}
-                    className="btn-primary"
-                    disabled={isProcessing}
-                    style={{ 
-                        flex: '1 1 auto', 
-                        minWidth: '140px', 
-                        maxWidth: '200px', 
-                        display: 'inline-flex', 
-                        alignItems: 'center', 
-                        justifyContent: 'center', 
-                        gap: '0.5rem',
-                        cursor: isProcessing ? 'default' : 'pointer'
-                    }}
-                >
-                    {isProcessing ? (
-                        <>
-                            <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                            Attendere...
-                        </>
-                    ) : (
-                        <>
-                            <i className="bi bi-upload"></i>
-                            Carica
-                        </>
+                {/* Bulletproof Carica Button for Mobile */}
+                <div style={{ 
+                    position: 'relative', 
+                    flex: '1 1 auto', 
+                    minWidth: '140px', 
+                    maxWidth: '200px',
+                    overflow: 'hidden'
+                }}>
+                    <button
+                        className="btn-primary"
+                        disabled={isProcessing}
+                        style={{ 
+                            width: '100%',
+                            display: 'inline-flex', 
+                            alignItems: 'center', 
+                            justifyContent: 'center', 
+                            gap: '0.5rem',
+                            cursor: isProcessing ? 'default' : 'pointer'
+                        }}
+                    >
+                        {isProcessing ? (
+                            <>
+                                <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                Attendere...
+                            </>
+                        ) : (
+                            <>
+                                <i className="bi bi-upload"></i>
+                                Carica
+                            </>
+                        )}
+                    </button>
+                    {!isProcessing && (
+                        <input
+                            type="file"
+                            accept="image/*"
+                            onChange={handleFileChange}
+                            style={{
+                                position: 'absolute',
+                                top: 0,
+                                left: 0,
+                                opacity: 0,
+                                width: '100%',
+                                height: '100%',
+                                cursor: 'pointer',
+                                fontSize: '100px' // Ensure the click area is large
+                            }}
+                        />
                     )}
-                </button>
+                </div>
 
                 <button
                     onClick={handleCameraClick}
@@ -248,7 +259,8 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
                         alignItems: 'center', 
                         justifyContent: 'center', 
                         gap: '0.5rem', 
-                        background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)' 
+                        background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                        cursor: isProcessing ? 'default' : 'pointer'
                     }}
                 >
                     {isProcessing ? (
