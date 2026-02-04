@@ -263,7 +263,8 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
                 </button>
             </div>
         </div>
-    );
+    </>
+);
 };
 
 export default UploadSection;
