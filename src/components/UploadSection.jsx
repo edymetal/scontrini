@@ -88,7 +88,7 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
 
             <canvas ref={canvasRef} style={{ display: 'none' }} />
 
-            {/* Desktop Webcam Modal */}
+            {/* Webcam Modal */}
             {isWebcamOpen && (
                 <div style={{
                     position: 'fixed',
@@ -96,21 +96,18 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
                     left: 0,
                     width: '100%',
                     height: '100%',
-                    background: 'rgba(15, 23, 42, 0.9)',
-                    backdropFilter: 'blur(10px)',
+                    background: '#000',
                     zIndex: 2000,
                     display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    padding: '1rem'
+                    flexDirection: 'column'
                 }}>
-                    <div className="glass-panel" style={{
-                        width: '100%',
-                        maxWidth: '800px',
-                        overflow: 'hidden',
+                    <div style={{
+                        flex: 1,
                         position: 'relative',
-                        padding: '10px'
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        overflow: 'hidden'
                     }}>
                         <video
                             ref={videoRef}
@@ -118,47 +115,89 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
                             playsInline
                             style={{
                                 width: '100%',
-                                borderRadius: '15px',
-                                background: '#000',
-                                display: 'block'
+                                height: '100%',
+                                objectFit: 'contain'
                             }}
                         />
+                        
+                        {/* Close Button Top Right */}
+                        <button
+                            onClick={stopWebcam}
+                            style={{
+                                position: 'absolute',
+                                top: '1.5rem',
+                                right: '1.5rem',
+                                background: 'rgba(0,0,0,0.5)',
+                                border: 'none',
+                                color: 'white',
+                                width: '40px',
+                                height: '40px',
+                                borderRadius: '50%',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                cursor: 'pointer',
+                                zIndex: 2100
+                            }}
+                        >
+                            <i className="bi bi-x-lg" style={{ fontSize: '1.2rem' }}></i>
+                        </button>
+                    </div>
 
-                        <div style={{
-                            marginTop: '1.5rem',
-                            display: 'flex',
-                            gap: '1rem',
-                            justifyContent: 'center',
-                            padding: '1rem'
-                        }}>
+                    <div style={{
+                        padding: '2rem',
+                        background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        gap: '1rem',
+                        position: 'absolute',
+                        bottom: 0,
+                        width: '100%'
+                    }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
                             <button
                                 onClick={stopWebcam}
-                                className="btn-primary"
                                 style={{
-                                    background: 'rgba(255,255,255,0.1)',
+                                    background: 'none',
+                                    border: 'none',
                                     color: 'white',
-                                    boxShadow: 'none',
-                                    flex: '1',
-                                    maxWidth: '150px'
+                                    cursor: 'pointer',
+                                    fontSize: '0.9rem'
                                 }}
                             >
                                 Annulla
                             </button>
+
                             <button
                                 onClick={capturePhoto}
-                                className="btn-primary"
                                 style={{
-                                    flex: '1',
-                                    maxWidth: '150px',
+                                    width: '72px',
+                                    height: '72px',
+                                    borderRadius: '50%',
+                                    border: '4px solid white',
+                                    background: 'rgba(255,255,255,0.2)',
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
-                                    gap: '0.5rem'
+                                    padding: 0,
+                                    cursor: 'pointer',
+                                    boxShadow: '0 0 15px rgba(0,0,0,0.3)'
                                 }}
                             >
-                                <i className="bi bi-camera-fill"></i> Scatta
+                                <div style={{
+                                    width: '56px',
+                                    height: '56px',
+                                    borderRadius: '50%',
+                                    background: 'white'
+                                }}></div>
                             </button>
+
+                            <div style={{ width: '50px' }}></div> {/* Spacer to center the shutter */}
                         </div>
+                        <p style={{ color: 'white', margin: 0, fontSize: '0.8rem', opacity: 0.8 }}>
+                            Inquadra lo scontrino e scatta
+                        </p>
                     </div>
                 </div>
             )}
