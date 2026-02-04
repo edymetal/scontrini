@@ -19,10 +19,10 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
     const handleCameraClick = async () => {
         try {
             const constraints = {
-                video: { 
-                    facingMode: 'environment', 
-                    width: { ideal: 1920 }, 
-                    height: { ideal: 1080 } 
+                video: {
+                    facingMode: 'environment',
+                    width: { ideal: 1920 },
+                    height: { ideal: 1080 }
                 }
             };
             const newStream = await navigator.mediaDevices.getUserMedia(constraints);
@@ -106,7 +106,7 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
                                 objectFit: 'cover' // Fills the screen
                             }}
                         />
-                        
+
                         {/* Close Button Top Right */}
                         <button
                             onClick={stopWebcam}
@@ -195,72 +195,87 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
                     </p>
                 </div>
 
-            <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-                <label
-                    className="btn-primary"
-                    style={{ 
-                        flex: '1 1 auto', 
-                        minWidth: '140px', 
-                        maxWidth: '200px', 
-                        display: 'inline-flex', 
-                        alignItems: 'center', 
-                        justifyContent: 'center', 
-                        gap: '0.5rem',
-                        cursor: isProcessing ? 'default' : 'pointer'
-                    }}
-                >
-                    <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleFileChange}
-                        disabled={isProcessing}
-                        style={{ display: 'none' }}
-                    />
-                    {isProcessing ? (
-                        <>
-                            <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                            Attendere...
-                        </>
-                    ) : (
-                        <>
-                            <i className="bi bi-upload"></i>
-                            Carica
-                        </>
-                    )}
-                </label>
+                <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+                    <label
+                        htmlFor="file-upload"
+                        className="btn-primary"
+                        style={{
+                            flex: '1 1 auto',
+                            minWidth: '140px',
+                            maxWidth: '200px',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '0.5rem',
+                            cursor: isProcessing ? 'default' : 'pointer',
+                            position: 'relative', // Ensure label is positioned for click context
+                            overflow: 'hidden'
+                        }}
+                    >
+                        <input
+                            id="file-upload"
+                            type="file"
+                            accept="image/*"
+                            onChange={handleFileChange}
+                            disabled={isProcessing}
+                            style={{
+                                position: 'absolute',
+                                width: '1px',
+                                height: '1px',
+                                padding: 0,
+                                margin: '-1px',
+                                overflow: 'hidden',
+                                clip: 'rect(0, 0, 0, 0)',
+                                whiteSpace: 'nowrap',
+                                border: 0,
+                                opacity: 0 // Visually hidden but functional
+                            }}
+                        />
+                        {isProcessing ? (
+                            <>
+                                <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                Attendere...
+                            </>
+                        ) : (
+                            <>
+                                <i className="bi bi-upload"></i>
+                                Carica
+                            </>
+                        )}
+                    </label>
 
-                <button
-                    onClick={handleCameraClick}
-                    className="btn-primary"
-                    disabled={isProcessing}
-                    style={{ 
-                        flex: '1 1 auto', 
-                        minWidth: '140px', 
-                        maxWidth: '200px', 
-                        display: 'inline-flex', 
-                        alignItems: 'center', 
-                        justifyContent: 'center', 
-                        gap: '0.5rem', 
-                        background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
-                        cursor: isProcessing ? 'default' : 'pointer'
-                    }}
-                >
-                    {isProcessing ? (
-                        <>
-                            <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                            Attendere...
-                        </>
-                    ) : (
-                        <>
-                            <i className="bi bi-camera"></i>
-                            Scatta
-                        </>
-                    )}
-                </button>
+                    <button
+                        onClick={handleCameraClick}
+                        className="btn-primary"
+                        disabled={isProcessing}
+                        style={{
+                            flex: '1 1 auto',
+                            minWidth: '140px',
+                            maxWidth: '200px',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '0.5rem',
+                            background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                            cursor: isProcessing ? 'default' : 'pointer'
+                        }}
+                    >
+                        {isProcessing ? (
+                            <>
+                                <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                Attendere...
+                            </>
+                        ) : (
+                            <>
+                                <i className="bi bi-camera"></i>
+                                Scatta
+                            </>
+                        )}
+                    </button>
+                </div>
             </div>
-        </div>
-    </>
-);
+        </>
+    );
 };
 
 export default UploadSection;
