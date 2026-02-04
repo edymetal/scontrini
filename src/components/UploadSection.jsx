@@ -145,47 +145,29 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
                         bottom: 0,
                         width: '100%'
                     }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
-                            <button
-                                onClick={stopWebcam}
-                                style={{
-                                    background: 'none',
-                                    border: 'none',
-                                    color: 'white',
-                                    cursor: 'pointer',
-                                    fontSize: '0.9rem',
-                                    padding: '10px'
-                                }}
-                            >
-                                Annulla
-                            </button>
-
-                            <button
-                                onClick={capturePhoto}
-                                style={{
-                                    width: '72px',
-                                    height: '72px',
-                                    borderRadius: '50%',
-                                    border: '4px solid white',
-                                    background: 'rgba(255,255,255,0.2)',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    padding: 0,
-                                    cursor: 'pointer',
-                                    boxShadow: '0 0 15px rgba(0,0,0,0.3)'
-                                }}
-                            >
-                                <div style={{
-                                    width: '56px',
-                                    height: '56px',
-                                    borderRadius: '50%',
-                                    background: 'white'
-                                }}></div>
-                            </button>
-
-                            <div style={{ width: '50px' }}></div>
-                        </div>
+                        <button
+                            onClick={capturePhoto}
+                            style={{
+                                width: '72px',
+                                height: '72px',
+                                borderRadius: '50%',
+                                border: '4px solid white',
+                                background: 'rgba(255,255,255,0.2)',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                padding: 0,
+                                cursor: 'pointer',
+                                boxShadow: '0 0 15px rgba(0,0,0,0.3)'
+                            }}
+                        >
+                            <div style={{
+                                width: '56px',
+                                height: '56px',
+                                borderRadius: '50%',
+                                background: 'white'
+                            }}></div>
+                        </button>
                         <p style={{ color: 'white', margin: 0, fontSize: '0.8rem', opacity: 0.8, textShadow: '0 1px 2px rgba(0,0,0,0.5)' }}>
                             Inquadra lo scontrino e scatta
                         </p>
