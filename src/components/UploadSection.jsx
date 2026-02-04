@@ -16,6 +16,10 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
         }
     };
 
+    const handleUploadClick = () => {
+        document.getElementById('receipt-upload').click();
+    };
+
     const handleCameraClick = async () => {
         try {
             const constraints = {
@@ -196,8 +200,18 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
                 </div>
 
             <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-                <label
+                <input
+                    id="receipt-upload"
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileChange}
+                    style={{ display: 'none' }}
+                />
+
+                <button
+                    onClick={handleUploadClick}
                     className="btn-primary"
+                    disabled={isProcessing}
                     style={{ 
                         flex: '1 1 auto', 
                         minWidth: '140px', 
@@ -209,12 +223,6 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
                         cursor: isProcessing ? 'default' : 'pointer'
                     }}
                 >
-                    <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleFileChange}
-                        style={{ display: 'none' }}
-                    />
                     {isProcessing ? (
                         <>
                             <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
@@ -226,7 +234,7 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
                             Carica
                         </>
                     )}
-                </label>
+                </button>
 
                 <button
                     onClick={handleCameraClick}
@@ -255,29 +263,6 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
                         </>
                     )}
                 </button>
-
-                {/* 3rd Test Button */}
-                <div style={{ width: '100%', marginTop: '1.5rem', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '1rem' }}>
-                    <p style={{ fontSize: '0.8rem', color: '#64748b', marginBottom: '0.5rem' }}>Debug Android:</p>
-                    <button 
-                        onClick={() => {
-                            alert('Botão clicado! Tentando abrir seletor...');
-                            document.getElementById('debug-input').click();
-                        }}
-                        style={{ padding: '10px', fontSize: '0.8rem', marginBottom: '10px' }}
-                    >
-                        Abrir Galeria (Teste)
-                    </button>
-                    <input 
-                        id="debug-input"
-                        type="file" 
-                        onChange={(e) => {
-                            alert('Arquivo selecionado: ' + (e.target.files[0]?.name || 'nenhum'));
-                            handleFileChange(e);
-                        }}
-                        style={{ display: 'none' }}
-                    />
-                </div>
             </div>
         </div>
     </>
