@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 
 const UploadSection = ({ onImageUpload, isProcessing }) => {
+    const fileInputRef = useRef(null);
     const videoRef = useRef(null);
     const canvasRef = useRef(null);
 
@@ -11,6 +12,15 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
         const file = e.target.files[0];
         if (file) {
             onImageUpload(file);
+            // Reset input value to allow selecting the same file again
+            e.target.value = '';
+        }
+    };
+
+    const handleUploadClick = (e) => {
+        e.preventDefault();
+        if (fileInputRef.current) {
+            fileInputRef.current.click();
         }
     };
 
@@ -173,11 +183,22 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
             <div className="glass-panel" style={{ padding: '2rem', textAlign: 'center', marginBottom: '2rem' }}>
                 {/* Standard Upload Input */}
                 <input
-                    id="file-upload"
                     type="file"
                     accept="image/*"
+                    ref={fileInputRef}
                     onChange={handleFileChange}
-                    style={{ display: 'none' }}
+                    style={{
+                        position: 'absolute',
+                        width: '1px',
+                        height: '1px',
+                        padding: '0',
+                        margin: '-1px',
+                        overflow: 'hidden',
+                        clip: 'rect(0,0,0,0)',
+                        border: '0',
+                        display: 'block', // Keep it in the DOM but hidden
+                        visibility: 'hidden'
+                    }}
                 />
 
                 <canvas ref={canvasRef} style={{ display: 'none' }} />
@@ -203,9 +224,10 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
             </div>
 
             <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-                <label
-                    htmlFor="file-upload"
+                <button
+                    onClick={handleUploadClick}
                     className="btn-primary"
+                    disabled={isProcessing}
                     style={{ 
                         flex: '1 1 auto', 
                         minWidth: '140px', 
@@ -214,9 +236,7 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
                         alignItems: 'center', 
                         justifyContent: 'center', 
                         gap: '0.5rem',
-                        cursor: isProcessing ? 'not-allowed' : 'pointer',
-                        opacity: isProcessing ? 0.7 : 1,
-                        pointerEvents: isProcessing ? 'none' : 'auto'
+                        cursor: isProcessing ? 'not-allowed' : 'pointer'
                     }}
                 >
                     {isProcessing ? (
@@ -229,7 +249,7 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
                             <i className="bi bi-upload"></i> Carica
                         </>
                     )}
-                </label>
+                </button>
 
                 <button
                     onClick={handleCameraClick}
