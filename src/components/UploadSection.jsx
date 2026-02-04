@@ -3,6 +3,11 @@ import React, { useRef, useState, useEffect } from 'react';
 const UploadSection = ({ onImageUpload, isProcessing }) => {
     const videoRef = useRef(null);
     const canvasRef = useRef(null);
+    const fileInputRef = useRef(null);
+
+    const handleUploadClick = () => {
+        fileInputRef.current.click();
+    };
 
     const [isWebcamOpen, setIsWebcamOpen] = useState(false);
     const [stream, setStream] = useState(null);
@@ -196,8 +201,18 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
                 </div>
 
                 <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-                    <label
-                        htmlFor="file-upload"
+                    {/* Hidden file input controlled via ref */}
+                    <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept="image/*"
+                        onChange={handleFileChange}
+                        disabled={isProcessing}
+                        style={{ display: 'none' }}
+                    />
+
+                    <button
+                        onClick={handleUploadClick}
                         className="btn-primary"
                         style={{
                             flex: '1 1 auto',
@@ -207,30 +222,9 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
                             alignItems: 'center',
                             justifyContent: 'center',
                             gap: '0.5rem',
-                            cursor: isProcessing ? 'default' : 'pointer',
-                            position: 'relative', // Ensure label is positioned for click context
-                            overflow: 'hidden'
+                            cursor: isProcessing ? 'default' : 'pointer'
                         }}
                     >
-                        <input
-                            id="file-upload"
-                            type="file"
-                            accept="image/*"
-                            onChange={handleFileChange}
-                            disabled={isProcessing}
-                            style={{
-                                position: 'absolute',
-                                width: '1px',
-                                height: '1px',
-                                padding: 0,
-                                margin: '-1px',
-                                overflow: 'hidden',
-                                clip: 'rect(0, 0, 0, 0)',
-                                whiteSpace: 'nowrap',
-                                border: 0,
-                                opacity: 0 // Visually hidden but functional
-                            }}
-                        />
                         {isProcessing ? (
                             <>
                                 <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
@@ -242,7 +236,7 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
                                 Carica
                             </>
                         )}
-                    </label>
+                    </button>
 
                     <button
                         onClick={handleCameraClick}
