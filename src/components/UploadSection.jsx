@@ -257,22 +257,25 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
                 </button>
 
                 {/* 3rd Test Button */}
-                <div style={{ width: '100%', marginTop: '1rem' }}>
-                    <p style={{ fontSize: '0.8rem', color: '#64748b', marginBottom: '0.5rem' }}>Test di caricamento (Android):</p>
-                    <input 
-                        type="file" 
-                        accept="image/*" 
-                        onChange={handleFileChange}
-                        style={{
-                            background: 'rgba(255,255,255,0.05)',
-                            border: '1px solid rgba(255,255,255,0.1)',
-                            borderRadius: '8px',
-                            padding: '8px',
-                            color: 'white',
-                            fontSize: '0.8rem',
-                            width: '100%',
-                            maxWidth: '300px'
+                <div style={{ width: '100%', marginTop: '1.5rem', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '1rem' }}>
+                    <p style={{ fontSize: '0.8rem', color: '#64748b', marginBottom: '0.5rem' }}>Debug Android:</p>
+                    <button 
+                        onClick={() => {
+                            alert('Botão clicado! Tentando abrir seletor...');
+                            document.getElementById('debug-input').click();
                         }}
+                        style={{ padding: '10px', fontSize: '0.8rem', marginBottom: '10px' }}
+                    >
+                        Abrir Galeria (Teste)
+                    </button>
+                    <input 
+                        id="debug-input"
+                        type="file" 
+                        onChange={(e) => {
+                            alert('Arquivo selecionado: ' + (e.target.files[0]?.name || 'nenhum'));
+                            handleFileChange(e);
+                        }}
+                        style={{ display: 'none' }}
                     />
                 </div>
             </div>
