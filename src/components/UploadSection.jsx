@@ -15,6 +15,13 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) {
+            // Validate file type manually since we removed the accept attribute for Android compatibility
+            if (!file.type.startsWith('image/')) {
+                alert("Per favore seleziona solo file immagine (JPG, PNG, ecc).");
+                e.target.value = ''; // Reset input
+                return;
+            }
+
             onImageUpload(file);
             // Reset input value to allow selecting the same file again
             e.target.value = '';
@@ -205,7 +212,7 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
                     <input
                         ref={fileInputRef}
                         type="file"
-                        accept="image/*"
+                        /* accept attribute removed for better Android compatibility */
                         onChange={handleFileChange}
                         disabled={isProcessing}
                         style={{ display: 'none' }}
@@ -266,51 +273,6 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
                             </>
                         )}
                     </button>
-                </div>
-                <div style={{ marginTop: '2rem', padding: '1rem', border: '2px dashed red', borderRadius: '8px', background: '#fff0f0' }}>
-                    <p style={{ color: 'red', fontWeight: 'bold', marginBottom: '1rem', textAlign: 'center' }}>Área de Diagnóstico (Teste Mobile)</p>
-                    <p style={{ fontSize: '0.8rem', color: '#666', marginBottom: '1rem', textAlign: 'center' }}>
-                        Se o input nativo falhou, tente estas variações para descobrirmos a causa.
-                    </p>
-
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-
-                        {/* Variação 1: Input totalmente limpo */}
-                        <div>
-                            <label style={{ fontWeight: 'bold', display: 'block', marginBottom: '0.2rem' }}>A. Input "Puro" (Sem restrições)</label>
-                            <p style={{ fontSize: '0.75rem', margin: 0 }}>Se este funcionar, o atributo 'accept="image/*"' estava travando.</p>
-                            <input
-                                type="file"
-                                onChange={handleFileChange}
-                                style={{ display: 'block', width: '100%', padding: '0.5rem', marginTop: '0.2rem', background: 'white', border: '1px solid #ccc' }}
-                            />
-                        </div>
-
-                        {/* Variação 2: Especificar extensões em vez de wildcard */}
-                        <div>
-                            <label style={{ fontWeight: 'bold', display: 'block', marginBottom: '0.2rem' }}>B. Tipos Específicos (.jpg,.png)</label>
-                            <p style={{ fontSize: '0.75rem', margin: 0 }}>Alguns Androids antigos falham com wildcard (*).</p>
-                            <input
-                                type="file"
-                                accept="image/jpeg,image/png,image/heic"
-                                onChange={handleFileChange}
-                                style={{ display: 'block', width: '100%', padding: '0.5rem', marginTop: '0.2rem', background: 'white', border: '1px solid #ccc' }}
-                            />
-                        </div>
-
-                        {/* Variação 3: Forçar câmera */}
-                        <div>
-                            <label style={{ fontWeight: 'bold', display: 'block', marginBottom: '0.2rem' }}>C. Forçar Câmera (capture)</label>
-                            <p style={{ fontSize: '0.75rem', margin: 0 }}>Tenta abrir direto a câmera.</p>
-                            <input
-                                type="file"
-                                accept="image/*"
-                                capture="environment"
-                                onChange={handleFileChange}
-                                style={{ display: 'block', width: '100%', padding: '0.5rem', marginTop: '0.2rem', background: 'white', border: '1px solid #ccc' }}
-                            />
-                        </div>
-                    </div>
                 </div>
             </div>
         </>
