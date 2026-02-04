@@ -76,28 +76,18 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
     }, [isWebcamOpen, stream]);
 
     return (
-        <div className="glass-panel" style={{ padding: '2rem', textAlign: 'center', marginBottom: '2rem' }}>
-            {/* Standard Upload Input */}
-            <input
-                type="file"
-                accept="image/*"
-                ref={uploadInputRef}
-                style={{ position: 'absolute', width: '1px', height: '1px', padding: 0, margin: '-1px', overflow: 'hidden', clip: 'rect(0,0,0,0)', border: 0 }}
-                onChange={handleFileChange}
-            />
-
-            <canvas ref={canvasRef} style={{ display: 'none' }} />
-
+        <>
             {/* Webcam Modal */}
             {isWebcamOpen && (
                 <div style={{
                     position: 'fixed',
                     top: 0,
                     left: 0,
-                    width: '100%',
-                    height: '100%',
+                    width: '100vw',
+                    height: '100vh',
+                    height: '100dvh', // Support for dynamic viewport height on mobile
                     background: '#000',
-                    zIndex: 2000,
+                    zIndex: 9999, // Ensure it stays above everything
                     display: 'flex',
                     flexDirection: 'column'
                 }}>
@@ -116,7 +106,7 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
                             style={{
                                 width: '100%',
                                 height: '100%',
-                                objectFit: 'contain'
+                                objectFit: 'cover' // Fills the screen
                             }}
                         />
                         
@@ -137,7 +127,7 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 cursor: 'pointer',
-                                zIndex: 2100
+                                zIndex: 10000
                             }}
                         >
                             <i className="bi bi-x-lg" style={{ fontSize: '1.2rem' }}></i>
@@ -145,8 +135,8 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
                     </div>
 
                     <div style={{
-                        padding: '2rem',
-                        background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)',
+                        padding: '2rem 1rem 3rem', // Extra bottom padding for mobile browsers
+                        background: 'linear-gradient(to top, rgba(0,0,0,0.9), transparent)',
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
@@ -163,7 +153,8 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
                                     border: 'none',
                                     color: 'white',
                                     cursor: 'pointer',
-                                    fontSize: '0.9rem'
+                                    fontSize: '0.9rem',
+                                    padding: '10px'
                                 }}
                             >
                                 Annulla
@@ -193,14 +184,26 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
                                 }}></div>
                             </button>
 
-                            <div style={{ width: '50px' }}></div> {/* Spacer to center the shutter */}
+                            <div style={{ width: '50px' }}></div>
                         </div>
-                        <p style={{ color: 'white', margin: 0, fontSize: '0.8rem', opacity: 0.8 }}>
+                        <p style={{ color: 'white', margin: 0, fontSize: '0.8rem', opacity: 0.8, textShadow: '0 1px 2px rgba(0,0,0,0.5)' }}>
                             Inquadra lo scontrino e scatta
                         </p>
                     </div>
                 </div>
             )}
+
+            <div className="glass-panel" style={{ padding: '2rem', textAlign: 'center', marginBottom: '2rem' }}>
+                {/* Standard Upload Input */}
+                <input
+                    type="file"
+                    accept="image/*"
+                    ref={uploadInputRef}
+                    style={{ position: 'absolute', width: '1px', height: '1px', padding: 0, margin: '-1px', overflow: 'hidden', clip: 'rect(0,0,0,0)', border: 0 }}
+                    onChange={handleFileChange}
+                />
+
+                <canvas ref={canvasRef} style={{ display: 'none' }} />
 
             <div style={{ marginBottom: '1.5rem' }}>
                 <div style={{
