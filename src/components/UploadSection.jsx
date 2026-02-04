@@ -172,33 +172,28 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
                 </div>
             )}
 
-                        <div className="glass-panel" style={{ padding: '2rem', textAlign: 'center', marginBottom: '2rem' }}>
+            <div className="glass-panel" style={{ padding: '2rem', textAlign: 'center', marginBottom: '2rem' }}>
+                <canvas ref={canvasRef} style={{ display: 'none' }} />
 
-                            <canvas ref={canvasRef} style={{ display: 'none' }} />
-
-            
-
-                            <div style={{ marginBottom: '1.5rem' }}>
-
-            
-                <div style={{
-                    width: '80px',
-                    height: '80px',
-                    background: 'rgba(99, 102, 241, 0.2)',
-                    borderRadius: '50%',
-                    margin: '0 auto 1rem',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    boxShadow: '0 0 20px rgba(99, 102, 241, 0.3)'
-                }}>
-                    <i className="bi bi-camera-fill" style={{ fontSize: '32px', color: '#a5b4fc' }}></i>
+                <div style={{ marginBottom: '1.5rem' }}>
+                    <div style={{
+                        width: '80px',
+                        height: '80px',
+                        background: 'rgba(99, 102, 241, 0.2)',
+                        borderRadius: '50%',
+                        margin: '0 auto 1rem',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        boxShadow: '0 0 20px rgba(99, 102, 241, 0.3)'
+                    }}>
+                        <i className="bi bi-camera-fill" style={{ fontSize: '32px', color: '#a5b4fc' }}></i>
+                    </div>
+                    <h3 style={{ marginBottom: '0.5rem' }}>Nuovo Scontrino</h3>
+                    <p style={{ color: '#94a3b8', fontSize: '0.9rem', maxWidth: '300px', margin: '0 auto' }}>
+                        Scatta una foto chiara o carica un'immagine del tuo scontrino fiscale.
+                    </p>
                 </div>
-                <h3 style={{ marginBottom: '0.5rem' }}>Nuovo Scontrino</h3>
-                <p style={{ color: '#94a3b8', fontSize: '0.9rem', maxWidth: '300px', margin: '0 auto' }}>
-                    Scatta una foto chiara o carica un'immagine del tuo scontrino fiscale.
-                </p>
-            </div>
 
             <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
                 <label
@@ -211,16 +206,13 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
                         alignItems: 'center', 
                         justifyContent: 'center', 
                         gap: '0.5rem',
-                        cursor: isProcessing ? 'not-allowed' : 'pointer',
-                        opacity: isProcessing ? 0.7 : 1
+                        cursor: isProcessing ? 'default' : 'pointer'
                     }}
                 >
                     <input
-                        id="receipt-upload"
                         type="file"
                         accept="image/*"
                         onChange={handleFileChange}
-                        disabled={isProcessing}
                         style={{ display: 'none' }}
                     />
                     {isProcessing ? (
@@ -230,7 +222,8 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
                         </>
                     ) : (
                         <>
-                            <i className="bi bi-upload"></i> Carica
+                            <i className="bi bi-upload"></i>
+                            Carica
                         </>
                     )}
                 </label>
@@ -239,7 +232,16 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
                     onClick={handleCameraClick}
                     className="btn-primary"
                     disabled={isProcessing}
-                    style={{ flex: '1 1 auto', minWidth: '140px', maxWidth: '200px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)' }}
+                    style={{ 
+                        flex: '1 1 auto', 
+                        minWidth: '140px', 
+                        maxWidth: '200px', 
+                        display: 'inline-flex', 
+                        alignItems: 'center', 
+                        justifyContent: 'center', 
+                        gap: '0.5rem', 
+                        background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)' 
+                    }}
                 >
                     {isProcessing ? (
                         <>
@@ -248,7 +250,8 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
                         </>
                     ) : (
                         <>
-                            <i className="bi bi-camera"></i> Scatta
+                            <i className="bi bi-camera"></i>
+                            Scatta
                         </>
                     )}
                 </button>
