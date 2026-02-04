@@ -182,12 +182,16 @@ function App() {
         paddingTop: '1.5rem'
       }}>
         <p>Scontrini v{version} &bull; Sviluppato da <strong>Edney Pugliese</strong></p>
-        <p style={{ marginTop: '0.5rem' }}>
-          <i className="bi bi-envelope-fill" style={{ marginRight: '0.5rem' }}></i>
-          <a href="mailto:edneypugliese@gmail.com" style={{ color: 'inherit', textDecoration: 'none' }}>
+        <div style={{ marginTop: '0.5rem', display: 'flex', justifyContent: 'center', gap: '1.5rem', flexWrap: 'wrap' }}>
+          <a href="mailto:edneypugliese@gmail.com" style={{ color: 'inherit', textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
+            <i className="bi bi-envelope-fill" style={{ marginRight: '0.5rem' }}></i>
             edneypugliese@gmail.com
           </a>
-        </p>
+          <a href="https://www.edneypugliese.it" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
+            <i className="bi bi-globe" style={{ marginRight: '0.5rem' }}></i>
+            edneypugliese.it
+          </a>
+        </div>
       </footer>
     </div>
   );
