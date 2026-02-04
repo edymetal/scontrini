@@ -2,16 +2,11 @@ import React, { useRef, useState, useEffect } from 'react';
 
 const UploadSection = ({ onImageUpload, isProcessing }) => {
     const uploadInputRef = useRef(null);
-    const cameraInputRef = useRef(null);
     const videoRef = useRef(null);
     const canvasRef = useRef(null);
 
     const [isWebcamOpen, setIsWebcamOpen] = useState(false);
     const [stream, setStream] = useState(null);
-
-    const isMobile = () => {
-        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    };
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -25,18 +20,26 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
     };
 
     const handleCameraClick = async () => {
-        if (isMobile()) {
-            cameraInputRef.current.click();
-        } else {
+        try {
+            const constraints = {
+                video: { 
+                    facingMode: 'environment', 
+                    width: { ideal: 1920 }, 
+                    height: { ideal: 1080 } 
+                }
+            };
+            const newStream = await navigator.mediaDevices.getUserMedia(constraints);
+            setStream(newStream);
+            setIsWebcamOpen(true);
+        } catch (err) {
+            console.error("Errore nell'accesso alla webcam:", err);
+            // Fallback for older browsers or specific mobile restrictions
             try {
-                const newStream = await navigator.mediaDevices.getUserMedia({
-                    video: { facingMode: 'environment', width: { ideal: 1280 }, height: { ideal: 720 } }
-                });
-                setStream(newStream);
+                const fallbackStream = await navigator.mediaDevices.getUserMedia({ video: true });
+                setStream(fallbackStream);
                 setIsWebcamOpen(true);
-            } catch (err) {
-                console.error("Errore nell'accesso alla webcam:", err);
-                alert("Non è stato possibile accedere alla webcam. Assicurati di aver dato i permessi.");
+            } catch (fallbackErr) {
+                alert("Non è stato possibile accedere alla webcam. Assicurati di aver dato i permessi e di usare HTTPS.");
             }
         }
     };
@@ -79,16 +82,6 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
                 type="file"
                 accept="image/*"
                 ref={uploadInputRef}
-                style={{ position: 'absolute', width: '1px', height: '1px', padding: 0, margin: '-1px', overflow: 'hidden', clip: 'rect(0,0,0,0)', border: 0 }}
-                onChange={handleFileChange}
-            />
-
-            {/* Camera Input (for Mobile) */}
-            <input
-                type="file"
-                accept="image/*"
-                capture="environment"
-                ref={cameraInputRef}
                 style={{ position: 'absolute', width: '1px', height: '1px', padding: 0, margin: '-1px', overflow: 'hidden', clip: 'rect(0,0,0,0)', border: 0 }}
                 onChange={handleFileChange}
             />
