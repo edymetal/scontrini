@@ -232,5 +232,3 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
 };
 
 export default UploadSection;
-
-export default UploadSection;
