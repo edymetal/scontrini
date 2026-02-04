@@ -1,7 +1,8 @@
 import React, { useRef } from 'react';
 
 const UploadSection = ({ onImageUpload, isProcessing }) => {
-    const fileInputRef = useRef(null);
+    const uploadInputRef = useRef(null);
+    const cameraInputRef = useRef(null);
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -10,17 +11,31 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
         }
     };
 
-    const handleClick = () => {
-        fileInputRef.current.click();
+    const handleUploadClick = () => {
+        uploadInputRef.current.click();
+    };
+
+    const handleCameraClick = () => {
+        cameraInputRef.current.click();
     };
 
     return (
         <div className="glass-panel" style={{ padding: '2rem', textAlign: 'center', marginBottom: '2rem' }}>
+            {/* Standard Upload Input */}
             <input
                 type="file"
                 accept="image/*"
-                // capture="environment" - Removed to allow choice between camera and gallery on mobile
-                ref={fileInputRef}
+                ref={uploadInputRef}
+                style={{ position: 'absolute', width: '1px', height: '1px', padding: 0, margin: '-1px', overflow: 'hidden', clip: 'rect(0,0,0,0)', border: 0 }}
+                onChange={handleFileChange}
+            />
+
+            {/* Camera Input */}
+            <input
+                type="file"
+                accept="image/*"
+                capture="environment"
+                ref={cameraInputRef}
                 style={{ position: 'absolute', width: '1px', height: '1px', padding: 0, margin: '-1px', overflow: 'hidden', clip: 'rect(0,0,0,0)', border: 0 }}
                 onChange={handleFileChange}
             />
@@ -45,23 +60,43 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
                 </p>
             </div>
 
-            <button
-                onClick={handleClick}
-                className="btn-primary"
-                disabled={isProcessing}
-                style={{ width: '100%', maxWidth: '300px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}
-            >
-                {isProcessing ? (
-                    <>
-                        <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                        Elaborazione...
-                    </>
-                ) : (
-                    <>
-                        <i className="bi bi-upload"></i> Carica / Scatta
-                    </>
-                )}
-            </button>
+            <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+                <button
+                    onClick={handleUploadClick}
+                    className="btn-primary"
+                    disabled={isProcessing}
+                    style={{ flex: '1 1 auto', minWidth: '140px', maxWidth: '200px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}
+                >
+                    {isProcessing ? (
+                        <>
+                            <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            Attendere...
+                        </>
+                    ) : (
+                        <>
+                            <i className="bi bi-upload"></i> Carica
+                        </>
+                    )}
+                </button>
+
+                <button
+                    onClick={handleCameraClick}
+                    className="btn-primary"
+                    disabled={isProcessing}
+                    style={{ flex: '1 1 auto', minWidth: '140px', maxWidth: '200px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)' }}
+                >
+                    {isProcessing ? (
+                        <>
+                            <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            Attendere...
+                        </>
+                    ) : (
+                        <>
+                            <i className="bi bi-camera"></i> Scatta
+                        </>
+                    )}
+                </button>
+            </div>
         </div>
     );
 };
