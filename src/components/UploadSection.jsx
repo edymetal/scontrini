@@ -92,9 +92,8 @@ const UploadSection = ({ onImageUpload, isProcessing }) => {
                     position: 'fixed',
                     top: 0,
                     left: 0,
+                    height: '100dvh', // Support for dynamic viewport height on mobile, fallback to 100vh manually if needed or just use 100vh
                     width: '100vw',
-                    height: '100vh',
-                    height: '100dvh', // Support for dynamic viewport height on mobile
                     background: '#000',
                     zIndex: 9999, // Ensure it stays above everything
                     display: 'flex',
