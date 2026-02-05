@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import { validateApiKey } from '../services/geminiService';
 
-const ApiKeyModal = ({ onSave, onClose }) => {
+const ApiKeyModal = ({ currentApiKey, onSave, onClose }) => {
     const [key, setKey] = useState('');
     const [isValidating, setIsValidating] = useState(false);
     const [error, setError] = useState(null);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (!key.trim()) return;
+
         setIsValidating(true);
         setError(null);
 
@@ -15,10 +18,19 @@ const ApiKeyModal = ({ onSave, onClose }) => {
 
         if (isValid) {
             onSave(key);
+            setKey(''); // Clear input after save
+            if (onClose) onClose();
         } else {
             setError("Chiave non valida o permessi insufficienti. Controlla la tua quota.");
         }
         setIsValidating(false);
+    };
+
+    const handleDeactivate = () => {
+        if (window.confirm("Sei sicuro di voler disattivare la chiave API? Potrai inserirne una nuova in seguito.")) {
+            onSave('');
+            setKey('');
+        }
     };
 
     return (
@@ -60,16 +72,56 @@ const ApiKeyModal = ({ onSave, onClose }) => {
                 <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
                     <i className="bi bi-key-fill" style={{ fontSize: '2.5rem', color: '#a5b4fc' }}></i>
                     <h2 className="text-gradient" style={{ marginTop: '1rem', fontSize: '1.5rem' }}>Configurazione</h2>
-                    <p style={{ color: '#94a3b8' }}>Inserisci la tua Google Gemini API Key</p>
+                    <p style={{ color: '#94a3b8' }}>Gestisci la tua Google Gemini API Key</p>
                 </div>
+
+                {currentApiKey ? (
+                    <div style={{
+                        marginBottom: '1.5rem',
+                        padding: '1rem',
+                        background: 'rgba(34, 197, 94, 0.1)',
+                        border: '1px solid rgba(34, 197, 94, 0.2)',
+                        borderRadius: '0.75rem',
+                        textAlign: 'center'
+                    }}>
+                        <div style={{ color: '#4ade80', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
+                            <i className="bi bi-check-circle-fill"></i>
+                            <span style={{ fontWeight: 500 }}>API Key Attiva</span>
+                        </div>
+                        <button
+                            onClick={handleDeactivate}
+                            style={{
+                                background: 'transparent',
+                                border: '1px solid rgba(248, 113, 113, 0.3)',
+                                color: '#f87171',
+                                padding: '0.4rem 0.8rem',
+                                borderRadius: '0.5rem',
+                                fontSize: '0.85rem',
+                                cursor: 'pointer',
+                                transition: 'all 0.2s'
+                            }}
+                            onMouseOver={(e) => e.target.style.background = 'rgba(248, 113, 113, 0.1)'}
+                            onMouseOut={(e) => e.target.style.background = 'transparent'}
+                        >
+                            Disattiva Chiave
+                        </button>
+                    </div>
+                ) : (
+                    <div style={{ marginBottom: '1.5rem', textAlign: 'center', color: '#94a3b8', fontSize: '0.9rem' }}>
+                        Nessuna chiave API configurata.
+                    </div>
+                )}
 
                 <form onSubmit={handleSubmit}>
                     <div style={{ marginBottom: '1.5rem' }}>
+                        <label style={{ display: 'block', color: '#e2e8f0', marginBottom: '0.5rem', fontSize: '0.9rem' }}>
+                            {currentApiKey ? 'Sostituisci Chiave API' : 'Inserisci Chiave API'}
+                        </label>
                         <input
                             type="password"
                             value={key}
                             onChange={(e) => setKey(e.target.value)}
-                            placeholder="AIzaSY..."
+                            placeholder={currentApiKey ? "Inserisci nuova chiave per sostituire..." : "AIzaSY..."}
                             style={{
                                 width: '100%',
                                 padding: '12px',
@@ -92,9 +144,9 @@ const ApiKeyModal = ({ onSave, onClose }) => {
                         type="submit"
                         className="btn-primary"
                         style={{ width: '100%' }}
-                        disabled={isValidating || !key}
+                        disabled={isValidating || !key.trim()}
                     >
-                        {isValidating ? 'Verifica in corso...' : 'Salva e Inizia'}
+                        {isValidating ? 'Verifica in corso...' : (currentApiKey ? 'Aggiorna Chiave' : 'Salva e Inizia')}
                     </button>
                 </form>
 
@@ -112,5 +164,4 @@ const ApiKeyModal = ({ onSave, onClose }) => {
         </div>
     );
 };
-
 export default ApiKeyModal;

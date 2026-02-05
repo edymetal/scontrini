@@ -102,7 +102,7 @@ function App() {
 
   return (
     <div className="app-container" style={{ maxWidth: '600px', margin: '0 auto', padding: '2rem 1rem' }}>
-      {showModal && <ApiKeyModal onSave={setApiKey} onClose={() => setShowModal(false)} />}
+      {showModal && <ApiKeyModal currentApiKey={apiKey} onSave={setApiKey} onClose={() => setShowModal(false)} />}
 
       <header style={{ marginBottom: '2rem', textAlign: 'center', position: 'relative' }}>
         <button
