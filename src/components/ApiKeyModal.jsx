@@ -78,32 +78,37 @@ const ApiKeyModal = ({ currentApiKey, onSave, onClose }) => {
                 {currentApiKey ? (
                     <div style={{
                         marginBottom: '1.5rem',
-                        padding: '1rem',
-                        background: 'rgba(34, 197, 94, 0.1)',
-                        border: '1px solid rgba(34, 197, 94, 0.2)',
-                        borderRadius: '0.75rem',
                         textAlign: 'center'
                     }}>
-                        <div style={{ color: '#4ade80', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
-                            <i className="bi bi-check-circle-fill"></i>
-                            <span style={{ fontWeight: 500 }}>API Key Attiva</span>
+                        <div style={{
+                            padding: '1rem',
+                            background: 'rgba(34, 197, 94, 0.1)',
+                            border: '1px solid rgba(34, 197, 94, 0.2)',
+                            borderRadius: '0.75rem',
+                            marginBottom: '1rem'
+                        }}>
+                            <div style={{ color: '#4ade80', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
+                                <i className="bi bi-check-circle-fill"></i>
+                                <span style={{ fontWeight: 500 }}>API Key Attiva</span>
+                            </div>
                         </div>
                         <button
                             onClick={handleDeactivate}
                             style={{
                                 background: 'transparent',
-                                border: '1px solid rgba(248, 113, 113, 0.3)',
+                                border: 'none',
                                 color: '#f87171',
-                                padding: '0.4rem 0.8rem',
-                                borderRadius: '0.5rem',
-                                fontSize: '0.85rem',
+                                fontSize: '0.9rem',
                                 cursor: 'pointer',
-                                transition: 'all 0.2s'
+                                textDecoration: 'underline',
+                                opacity: 0.8,
+                                transition: 'opacity 0.2s'
+
                             }}
-                            onMouseOver={(e) => e.target.style.background = 'rgba(248, 113, 113, 0.1)'}
-                            onMouseOut={(e) => e.target.style.background = 'transparent'}
+                            onMouseOver={(e) => e.target.style.opacity = '1'}
+                            onMouseOut={(e) => e.target.style.opacity = '0.8'}
                         >
-                            Disattiva Chiave
+                            Disattiva Chiave attuale
                         </button>
                     </div>
                 ) : (
