@@ -183,9 +183,13 @@ function App() {
       }}>
         <p>Scontrini v{version} &bull; Sviluppato da <strong>Edney Pugliese</strong></p>
         <div style={{ marginTop: '0.5rem', display: 'flex', justifyContent: 'center', gap: '1.5rem', flexWrap: 'wrap' }}>
-          <a href="mailto:edneypugliese@gmail.com" style={{ color: 'inherit', textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
+          <a href="mailto:contatto@edneypugliese.it" style={{ color: 'inherit', textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
             <i className="bi bi-envelope-fill" style={{ marginRight: '0.5rem' }}></i>
-            edneypugliese@gmail.com
+            contatto@edneypugliese.it
+          </a>
+          <a href="mailto:contatto@edney.it" style={{ color: 'inherit', textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
+            <i className="bi bi-envelope-fill" style={{ marginRight: '0.5rem' }}></i>
+            contatto@edney.it
           </a>
           <a href="https://www.edneypugliese.it" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
             <i className="bi bi-globe" style={{ marginRight: '0.5rem' }}></i>
