@@ -181,20 +181,22 @@ function App() {
         borderTop: '1px solid var(--glass-border)',
         paddingTop: '1.5rem'
       }}>
-        <p>Scontrini v{version} &bull; Sviluppato da <strong>Edney Pugliese</strong></p>
-        <div style={{ marginTop: '0.5rem', display: 'flex', justifyContent: 'center', gap: '1.5rem', flexWrap: 'wrap' }}>
-          <a href="mailto:contatto@edneypugliese.it" style={{ color: 'inherit', textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
-            <i className="bi bi-envelope-fill" style={{ marginRight: '0.5rem' }}></i>
-            contatto@edneypugliese.it
-          </a>
-          <a href="mailto:contatto@edney.it" style={{ color: 'inherit', textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
-            <i className="bi bi-envelope-fill" style={{ marginRight: '0.5rem' }}></i>
-            contatto@edney.it
-          </a>
+        <p>Desenvolvido por <strong>Edney Pugliese</strong></p>
+        <div style={{ marginTop: '0.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem' }}>
           <a href="https://www.edneypugliese.it" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
             <i className="bi bi-globe" style={{ marginRight: '0.5rem' }}></i>
             edneypugliese.it
           </a>
+          <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+            <a href="mailto:contatto@edneypugliese.it" style={{ color: 'inherit', textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
+              <i className="bi bi-envelope-fill" style={{ marginRight: '0.5rem' }}></i>
+              contatto@edneypugliese.it
+            </a>
+            <a href="mailto:contatto@edney.it" style={{ color: 'inherit', textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
+              <i className="bi bi-envelope-fill" style={{ marginRight: '0.5rem' }}></i>
+              contatto@edney.it
+            </a>
+          </div>
         </div>
       </footer>
     </div>
