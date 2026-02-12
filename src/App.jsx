@@ -181,7 +181,7 @@ function App() {
         borderTop: '1px solid var(--glass-border)',
         paddingTop: '1.5rem'
       }}>
-        <p>Desenvolvido por <strong>Edney Pugliese</strong></p>
+        <p>Sviluppato da <strong>Edney Pugliese</strong></p>
         <div style={{ marginTop: '0.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem' }}>
           <a href="https://www.edneypugliese.it" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
             <i className="bi bi-globe" style={{ marginRight: '0.5rem' }}></i>
