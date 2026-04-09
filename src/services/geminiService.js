@@ -22,7 +22,7 @@ export const validateApiKey = async (apiKey) => {
     if (!apiKey) return false;
     try {
         const genAI = new GoogleGenerativeAI(apiKey);
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+        const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
         await model.generateContent("Test connection");
         return true;
     } catch (error) {
@@ -38,7 +38,7 @@ export const processReceiptImage = async (file, apiKey) => {
 
     try {
         const genAI = new GoogleGenerativeAI(apiKey);
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+        const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
         const imagePart = await fileToGenerativePart(file);
 
