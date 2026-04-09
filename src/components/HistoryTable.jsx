@@ -1,4 +1,5 @@
 import React from 'react';
+import { formatNumber } from '../services/formatService';
 
 const HistoryTable = ({ receipts }) => {
     if (!receipts || receipts.length === 0) return null;
@@ -28,7 +29,7 @@ const HistoryTable = ({ receipts }) => {
                                 <td style={{ padding: '0.75rem', fontSize: '0.85rem', color: '#94a3b8' }}>{new Date(receipt.timestamp).toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' })}</td>
                                 <td style={{ padding: '0.75rem', fontSize: '0.95rem' }}>Nota Fiscale {receipt.id.slice(0, 4)}</td>
                                 <td style={{ padding: '0.75rem', textAlign: 'right', fontFamily: 'monospace', fontSize: '1rem', color: '#ec4899' }}>
-                                    {receipt.total.toFixed(2)}
+                                    {formatNumber(receipt.total)}
                                 </td>
                             </tr>
                         ))}
@@ -37,7 +38,7 @@ const HistoryTable = ({ receipts }) => {
                         <tr style={{ background: 'rgba(99, 102, 241, 0.1)' }}>
                             <td colSpan="3" style={{ padding: '0.75rem', fontWeight: '700' }}>SOMMA TOTALE</td>
                             <td style={{ padding: '0.75rem', textAlign: 'right', fontFamily: 'monospace', fontSize: '1.1rem', fontWeight: '700', color: '#6366f1' }}>
-                                € {totalSum.toFixed(2)}
+                                € {formatNumber(totalSum)}
                             </td>
                         </tr>
                     </tfoot>

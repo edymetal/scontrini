@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { formatNumber } from '../services/formatService';
 
 const ReceiptTable = ({ receipts }) => {
     if (!receipts || receipts.length === 0) return null;
@@ -94,7 +95,7 @@ const ReceiptTable = ({ receipts }) => {
                                 <tr key={index} style={{ borderBottom: '1px solid rgba(255,255,255,0.03)' }}>
                                     <td style={{ padding: '0.5rem 0.75rem', fontSize: '0.9rem' }}>{item.descrizione}</td>
                                     <td style={{ padding: '0.5rem 0.75rem', textAlign: 'right', fontFamily: 'monospace', fontSize: '0.95rem', color: '#94a3b8' }}>
-                                        {item.prezzo.toFixed(2)}
+                                        {formatNumber(item.prezzo)}
                                     </td>
                                 </tr>
                             ))}
@@ -103,7 +104,7 @@ const ReceiptTable = ({ receipts }) => {
                             <tr>
                                 <td style={{ padding: '1rem 0.75rem 0.5rem', fontSize: '1rem', fontWeight: '700', color: '#f8fafc' }}>TOTALE SCONTRINO</td>
                                 <td style={{ padding: '1rem 0.75rem 0.5rem', textAlign: 'right', fontFamily: 'monospace', fontSize: '1.2rem', fontWeight: '700', color: '#ec4899' }}>
-                                    € {currentReceipt.total.toFixed(2)}
+                                    € {formatNumber(currentReceipt.total)}
                                 </td>
                             </tr>
                         </tfoot>

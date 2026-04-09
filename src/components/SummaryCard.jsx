@@ -1,4 +1,5 @@
 import React from 'react';
+import { formatNumber } from '../services/formatService';
 
 const SummaryCard = ({ total, receiptCount }) => {
     return (
@@ -13,7 +14,7 @@ const SummaryCard = ({ total, receiptCount }) => {
             <div>
                 <p style={{ color: '#94a3b8', fontSize: '0.9rem', marginBottom: '0.25rem' }}>Totale Spesa</p>
                 <h2 className="text-gradient" style={{ fontSize: '2.5rem', fontFamily: 'monospace' }}>
-                    € {total.toFixed(2)}
+                    € {formatNumber(total)}
                 </h2>
             </div>
             <div style={{ textAlign: 'right' }}>
