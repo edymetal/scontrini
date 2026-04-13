@@ -44,7 +44,8 @@ export const processReceiptImage = async (file, apiKey) => {
 
         const prompt = `
       Analizza questa immagine di scontrino fiscale italiano.
-      Estrai la lista dei prodotti (prezzi inclusi) e la DATE DELLO SCONTRINO (giorno, mese, anno, ora e minuti).
+      Estrai la lista dei prodotti e la DATE DELLO SCONTRINO (giorno, mese, anno, ora e minuti).
+      Per ogni prodotto estrai anche la quantità e il prezzo unitario. Se non indicati, usa quantità 1 e prezzo unitario uguale al prezzo totale del prodotto.
       
       Importante:
       1. Se la data non è chiaramente leggibile, usa null per il campo "data".
@@ -54,7 +55,7 @@ export const processReceiptImage = async (file, apiKey) => {
       Formato atteso: 
       {
         "data": "YYYY-MM-DD HH:mm" o null,
-        "prodotti": [{"descrizione": "Nome Prodotto", "prezzo": 10.50}, ...]
+        "prodotti": [{"descrizione": "Nome Prodotto", "quantita": 1, "prezzo_unitario": 10.50, "prezzo": 10.50}, ...]
       }
     `;
 

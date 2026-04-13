@@ -90,10 +90,22 @@ const ReceiptTable = ({ receipts }) => {
                         SCONTRINO #{currentIndex + 1}
                     </div>
                     <table style={{ width: '100%', borderCollapse: 'collapse', color: '#e2e8f0' }}>
+                        <thead>
+                            <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.1)', textAlign: 'left', color: '#94a3b8', fontSize: '0.8rem', textTransform: 'uppercase' }}>
+                                <th style={{ padding: '0.5rem 0.75rem', fontWeight: '600' }}>Produto</th>
+                                <th style={{ padding: '0.5rem 0.75rem', textAlign: 'center', fontWeight: '600' }}>Qtd</th>
+                                <th style={{ padding: '0.5rem 0.75rem', textAlign: 'right', fontWeight: '600' }}>Valor Unit.</th>
+                                <th style={{ padding: '0.5rem 0.75rem', textAlign: 'right', fontWeight: '600' }}>Valor Total</th>
+                            </tr>
+                        </thead>
                         <tbody>
                             {currentReceipt.items.map((item, index) => (
                                 <tr key={index} style={{ borderBottom: '1px solid rgba(255,255,255,0.03)' }}>
                                     <td style={{ padding: '0.5rem 0.75rem', fontSize: '0.9rem' }}>{item.descrizione}</td>
+                                    <td style={{ padding: '0.5rem 0.75rem', textAlign: 'center', fontSize: '0.9rem', color: '#cbd5e1' }}>{item.quantita || 1}</td>
+                                    <td style={{ padding: '0.5rem 0.75rem', textAlign: 'right', fontFamily: 'monospace', fontSize: '0.95rem', color: '#cbd5e1' }}>
+                                        {formatNumber(item.prezzo_unitario || item.prezzo)}
+                                    </td>
                                     <td style={{ padding: '0.5rem 0.75rem', textAlign: 'right', fontFamily: 'monospace', fontSize: '0.95rem', color: '#94a3b8' }}>
                                         {formatNumber(item.prezzo)}
                                     </td>
@@ -102,7 +114,7 @@ const ReceiptTable = ({ receipts }) => {
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td style={{ padding: '1rem 0.75rem 0.5rem', fontSize: '1rem', fontWeight: '700', color: '#f8fafc' }}>TOTALE SCONTRINO</td>
+                                <td colSpan="3" style={{ padding: '1rem 0.75rem 0.5rem', fontSize: '1rem', fontWeight: '700', color: '#f8fafc' }}>TOTALE SCONTRINO</td>
                                 <td style={{ padding: '1rem 0.75rem 0.5rem', textAlign: 'right', fontFamily: 'monospace', fontSize: '1.2rem', fontWeight: '700', color: '#ec4899' }}>
                                     € {formatNumber(currentReceipt.total)}
                                 </td>
