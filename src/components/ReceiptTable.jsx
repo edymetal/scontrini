@@ -92,10 +92,10 @@ const ReceiptTable = ({ receipts }) => {
                     <table style={{ width: '100%', borderCollapse: 'collapse', color: '#e2e8f0' }}>
                         <thead>
                             <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.1)', textAlign: 'left', color: '#94a3b8', fontSize: '0.8rem', textTransform: 'uppercase' }}>
-                                <th style={{ padding: '0.5rem 0.75rem', fontWeight: '600' }}>Produto</th>
-                                <th style={{ padding: '0.5rem 0.75rem', textAlign: 'center', fontWeight: '600' }}>Qtd</th>
-                                <th style={{ padding: '0.5rem 0.75rem', textAlign: 'right', fontWeight: '600' }}>Valor Unit.</th>
-                                <th style={{ padding: '0.5rem 0.75rem', textAlign: 'right', fontWeight: '600' }}>Valor Total</th>
+                                <th style={{ padding: '0.5rem 0.75rem', fontWeight: '600' }}>Prodotto</th>
+                                <th style={{ padding: '0.5rem 0.75rem', textAlign: 'center', fontWeight: '600' }}>Q.tà</th>
+                                <th style={{ padding: '0.5rem 0.75rem', textAlign: 'right', fontWeight: '600' }}>Prezzo Unit.</th>
+                                <th style={{ padding: '0.5rem 0.75rem', textAlign: 'right', fontWeight: '600' }}>Prezzo Totale</th>
                             </tr>
                         </thead>
                         <tbody>
