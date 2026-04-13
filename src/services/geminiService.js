@@ -31,7 +31,7 @@ export const validateApiKey = async (apiKey) => {
     }
 };
 
-export const processReceiptImage = async (file, apiKey) => {
+export const processReceiptImage = async (file, apiKey, retries = 2) => {
     if (!apiKey) {
         throw new Error("Chiave API mancante.");
     }
@@ -69,6 +69,19 @@ export const processReceiptImage = async (file, apiKey) => {
         return JSON.parse(cleanText);
     } catch (error) {
         console.error("Errore Gemini:", error);
+        
+        const isOverloaded = error.message && (error.message.includes("503") || error.message.includes("overloaded"));
+
+        if (isOverloaded && retries > 0) {
+            console.log(`Servizio sovraccarico (503). Nuovi tentativi rimasti: ${retries}. Attesa di 2 secondi...`);
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            return processReceiptImage(file, apiKey, retries - 1);
+        }
+
+        if (isOverloaded) {
+            throw new Error("I server di Google (Gemini) sono attualmente molto richiesti e sovraccarichi (Errore 503). Riprova tra qualche minuto.");
+        }
+
         throw new Error("Impossibile elaborare lo scontrino. Verifica la foto o la chiave API.");
     }
 };
