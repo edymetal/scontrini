@@ -22,6 +22,30 @@ const ReceiptTable = ({ receipts }) => {
         setCurrentIndex((prev) => (prev < receipts.length - 1 ? prev + 1 : prev));
     };
 
+    const handleCopy = () => {
+        if (!currentReceipt || !currentReceipt.items) return;
+
+        // Header
+        const header = "Prodotto\tQ.tà\tPrezzo Unit.\tPrezzo Totale";
+        
+        // Rows
+        const rows = currentReceipt.items.map(item => {
+            const desc = item.descrizione;
+            const qtd = formatQuantity(item.quantita);
+            const unit = formatNumber(item.prezzo_unitario || item.prezzo);
+            const total = formatNumber(item.prezzo);
+            return `${desc}\t${qtd}\t${unit}\t${total}`;
+        }).join("\n");
+
+        const fullText = `${header}\n${rows}`;
+
+        navigator.clipboard.writeText(fullText).then(() => {
+            alert("Dati copiati! Ora puoi incollarli su Excel.");
+        }).catch(err => {
+            console.error("Errore durante la copia:", err);
+        });
+    };
+
     return (
         <div className="glass-panel" style={{ padding: '1.5rem', marginBottom: '2rem' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
@@ -31,6 +55,30 @@ const ReceiptTable = ({ receipts }) => {
                 </h4>
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                    <button
+                        onClick={handleCopy}
+                        title="Copia per Excel"
+                        style={{
+                            background: 'rgba(34, 197, 94, 0.2)',
+                            border: '1px solid rgba(34, 197, 94, 0.3)',
+                            color: '#4ade80',
+                            padding: '4px 8px',
+                            borderRadius: '6px',
+                            cursor: 'pointer',
+                            fontSize: '0.75rem',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '0.4rem',
+                            fontWeight: '600',
+                            transition: 'all 0.2s'
+                        }}
+                    >
+                        <i className="bi bi-file-earmark-spreadsheet"></i>
+                        Excel
+                    </button>
+
+                    <div style={{ width: '1px', height: '20px', background: 'rgba(255,255,255,0.1)', margin: '0 0.25rem' }}></div>
+
                     <button
                         onClick={handlePrev}
                         disabled={currentIndex === 0}
