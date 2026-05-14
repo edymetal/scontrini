@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { formatNumber } from '../services/formatService';
+import { formatNumber, formatQuantity } from '../services/formatService';
 
 const ReceiptTable = ({ receipts }) => {
     if (!receipts || receipts.length === 0) return null;
@@ -102,7 +102,7 @@ const ReceiptTable = ({ receipts }) => {
                             {currentReceipt.items.map((item, index) => (
                                 <tr key={index} style={{ borderBottom: '1px solid rgba(255,255,255,0.03)' }}>
                                     <td style={{ padding: '0.5rem 0.75rem', fontSize: '0.9rem' }}>{item.descrizione}</td>
-                                    <td style={{ padding: '0.5rem 0.75rem', textAlign: 'center', fontSize: '0.9rem', color: '#cbd5e1' }}>{item.quantita || 1}</td>
+                                    <td style={{ padding: '0.5rem 0.75rem', textAlign: 'center', fontSize: '0.9rem', color: '#cbd5e1' }}>{formatQuantity(item.quantita)}</td>
                                     <td style={{ padding: '0.5rem 0.75rem', textAlign: 'right', fontFamily: 'monospace', fontSize: '0.95rem', color: '#cbd5e1' }}>
                                         {formatNumber(item.prezzo_unitario || item.prezzo)}
                                     </td>

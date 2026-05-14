@@ -23,3 +23,16 @@ export const formatNumber = (value) => {
         maximumFractionDigits: 2
     });
 };
+
+/**
+ * Formats a quantity number with comma as decimal separator.
+ * @param {number} value - The numeric value to format.
+ * @returns {string} - The formatted string.
+ */
+export const formatQuantity = (value) => {
+    if (typeof value !== 'number' || isNaN(value)) return '1';
+    return value.toLocaleString('pt-BR', {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 3
+    });
+};
