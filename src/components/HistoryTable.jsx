@@ -10,7 +10,7 @@ const HistoryTable = ({ receipts }) => {
         <div className="glass-panel" style={{ padding: '1.5rem', marginBottom: '2rem' }}>
             <h4 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <i className="bi bi-clock-history" style={{ color: '#6366f1' }}></i>
-                Cronologia Scontrini
+                Histórico de Comprovantes
             </h4>
             <div style={{ maxHeight: '250px', overflowY: 'auto' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', color: '#e2e8f0' }}>
@@ -18,16 +18,16 @@ const HistoryTable = ({ receipts }) => {
                         <tr>
                             <th style={{ textAlign: 'left', padding: '0.75rem', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>#</th>
                             <th style={{ textAlign: 'left', padding: '0.75rem', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>Data</th>
-                            <th style={{ textAlign: 'left', padding: '0.75rem', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>Scontrino</th>
-                            <th style={{ textAlign: 'right', padding: '0.75rem', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>Totale (€)</th>
+                            <th style={{ textAlign: 'left', padding: '0.75rem', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>Estabelecimento</th>
+                            <th style={{ textAlign: 'right', padding: '0.75rem', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>Total (€)</th>
                         </tr>
                     </thead>
                     <tbody>
                         {receipts.map((receipt, index) => (
                             <tr key={receipt.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
                                 <td style={{ padding: '0.75rem', fontSize: '0.85rem', color: '#94a3b8' }}>{index + 1}</td>
-                                <td style={{ padding: '0.75rem', fontSize: '0.85rem', color: '#94a3b8' }}>{new Date(receipt.timestamp).toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' })}</td>
-                                <td style={{ padding: '0.75rem', fontSize: '0.95rem' }}>Nota Fiscale {receipt.id.slice(0, 4)}</td>
+                                <td style={{ padding: '0.75rem', fontSize: '0.85rem', color: '#94a3b8' }}>{new Date(receipt.timestamp).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' })}</td>
+                                <td style={{ padding: '0.75rem', fontSize: '0.95rem' }}>{receipt.negozio || `Cupom ${receipt.id.slice(0, 4)}`}</td>
                                 <td style={{ padding: '0.75rem', textAlign: 'right', fontFamily: 'monospace', fontSize: '1rem', color: '#ec4899' }}>
                                     {formatNumber(receipt.total)}
                                 </td>
@@ -36,7 +36,7 @@ const HistoryTable = ({ receipts }) => {
                     </tbody>
                     <tfoot>
                         <tr style={{ background: 'rgba(99, 102, 241, 0.1)' }}>
-                            <td colSpan="3" style={{ padding: '0.75rem', fontWeight: '700' }}>SOMMA TOTALE</td>
+                            <td colSpan="3" style={{ padding: '0.75rem', fontWeight: '700' }}>SOMA TOTAL</td>
                             <td style={{ padding: '0.75rem', textAlign: 'right', fontFamily: 'monospace', fontSize: '1.1rem', fontWeight: '700', color: '#6366f1' }}>
                                 € {formatNumber(totalSum)}
                             </td>

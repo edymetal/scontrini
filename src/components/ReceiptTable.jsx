@@ -25,24 +25,44 @@ const ReceiptTable = ({ receipts }) => {
     const handleCopy = () => {
         if (!currentReceipt || !currentReceipt.items) return;
 
-        // Header
-        const header = "Prodotto\tQ.tà\tPrezzo Unit.\tPrezzo Totale";
-        
         // Rows
         const rows = currentReceipt.items.map(item => {
+            const store = currentReceipt.negozio || "";
+            
+            // Format date DD/MM/YYYY
+            let dateStr = "";
+            if (currentReceipt.timestamp) {
+                const d = new Date(currentReceipt.timestamp);
+                if (!isNaN(d.getTime())) {
+                    const day = String(d.getDate()).padStart(2, '0');
+                    const month = String(d.getMonth() + 1).padStart(2, '0');
+                    const year = d.getFullYear();
+                    dateStr = `${day}/${month}/${year}`;
+                }
+            }
+            
             const desc = item.descrizione;
             const qtd = formatQuantity(item.quantita);
-            const unit = formatNumber(item.prezzo_unitario || item.prezzo);
-            const total = formatNumber(item.prezzo);
-            return `${desc}\t${qtd}\t${unit}\t${total}`;
+            const unit = "€" + formatNumber(item.prezzo_unitario || item.prezzo);
+            const total = "€" + formatNumber(item.prezzo);
+            
+            // Format for Excel starting at column B:
+            // Col B: Store
+            // Col C: Date
+            // Col D: Description
+            // Col E: (empty)
+            // Col F: (empty)
+            // Col G: Quantity
+            // Col H: Unit Price
+            // Col I: Total Price
+            // Tabs: B->C(1), C->D(2), D->E(3), E->F(4), F->G(5), G->H(6), H->I(7)
+            return `${store}\t${dateStr}\t${desc}\t\t\t${qtd}\t${unit}\t${total}`;
         }).join("\n");
 
-        const fullText = `${header}\n${rows}`;
-
-        navigator.clipboard.writeText(fullText).then(() => {
-            alert("Dati copiati! Ora puoi incollarli su Excel.");
+        navigator.clipboard.writeText(rows).then(() => {
+            alert("Dados copiados para o Excel!");
         }).catch(err => {
-            console.error("Errore durante la copia:", err);
+            console.error("Erro ao copiar:", err);
         });
     };
 
@@ -51,7 +71,7 @@ const ReceiptTable = ({ receipts }) => {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
                 <h4 style={{ margin: 0, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                     <i className="bi bi-list-nested" style={{ color: '#ec4899' }}></i>
-                    Dettaglio Prodotti
+                    Detalhes dos Produtos
                 </h4>
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
@@ -135,7 +155,7 @@ const ReceiptTable = ({ receipts }) => {
                         color: '#a5b4fc',
                         textAlign: 'center'
                     }}>
-                        SCONTRINO #{currentIndex + 1}
+                        {currentReceipt.negozio ? currentReceipt.negozio.toUpperCase() : "SCONTRINO"} #{currentIndex + 1}
                     </div>
                     <table style={{ width: '100%', borderCollapse: 'collapse', color: '#e2e8f0' }}>
                         <thead>

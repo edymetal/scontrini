@@ -44,17 +44,20 @@ export const processReceiptImage = async (file, apiKey, retries = 2) => {
 
         const prompt = `
       Analizza questa immagine di scontrino fiscale italiano.
-      Estrai la lista dei prodotti e la DATE DELLO SCONTRINO (giorno, mese, anno, ora e minuti).
-      Per ogni prodotto estrai anche la quantità e il prezzo unitario. Se non indicati, usa quantità 1 e prezzo unitario uguale al prezzo totale del prodotto.
+      Estrai:
+      1. IL NOME DEL NEGOZIO (es. LIDL, CONAD, ARD, COOP, etc.). Sii sintetico (es. "ARD" invece di "ARD DISCOUNT").
+      2. LA DATA DELLO SCONTRINO (giorno, mese, anno).
+      3. La lista dei prodotti. Per ogni prodotto estrai la descrizione, la quantità e il prezzo totale del prodotto.
+      4. Per ogni prodotto, calcola il prezzo unitario dividendo il prezzo totale per la quantità.
       
       Importante:
       1. Se la data non è chiaramente leggibile, usa null per il campo "data".
-      2. Ignora subtotali, totale complessivo o intestazione del negozio per la lista prodotti.
-      3. Restituisci un oggetto JSON puro senza markdown. 
+      2. Restituisci un oggetto JSON puro senza markdown. 
 
       Formato atteso: 
       {
-        "data": "YYYY-MM-DD HH:mm" o null,
+        "negozio": "Nome Negozio" o null,
+        "data": "YYYY-MM-DD" o null,
         "prodotti": [{"descrizione": "Nome Prodotto", "quantita": 1, "prezzo_unitario": 10.50, "prezzo": 10.50}, ...]
       }
     `;

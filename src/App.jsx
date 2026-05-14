@@ -39,6 +39,7 @@ function App() {
 
         const newReceipt = {
           id: crypto.randomUUID(),
+          negozio: result.negozio || "N/A",
           items: resultItems,
           total: receiptTotal,
           timestamp: result.data || new Date().toISOString()
